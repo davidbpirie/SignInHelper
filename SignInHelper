@@ -91,7 +91,7 @@ DetectKerbCache() {
 
 # Get the Kerberos principal from the cache
 GetPrincipal() {
-	PRINCIPAL=$(${CMD_PREFIX} /usr/bin/klist | grep -o 'Principal: .*' | cut -d : -f2 | cut -d' ' -f2 2> /dev/null)
+	PRINCIPAL=$(${CMD_PREFIX} /usr/bin/klist | grep -o 'Principal: .*' | cut -d : -f2 | sed 's/^ *//' | sed 's/\\ / /g' 2> /dev/null)
 	if [ "$PRINCIPAL" = "" ]; then
 		echo "0"
 	else
